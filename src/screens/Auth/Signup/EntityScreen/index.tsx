@@ -43,9 +43,9 @@ const EntityScreen = () => {
       </View>
 
       <View style={classes.bottom}>
-        <View style={classes.boxIconButton}>
+        <TouchableOpacity style={classes.boxIconButton}>
           <MaterialIcon name="check" color="#fff" size={24} />
-        </View>
+        </TouchableOpacity>
       </View>
     </LinearGradient>
   );

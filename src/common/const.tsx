@@ -2,6 +2,10 @@ interface Mapping {
   [key: string]: string;
 }
 
+const StatusCodeHttp = {
+  SUCCESS: '200',
+};
+
 const screenNavigation: Mapping = {
   ENTITY: 'Entity',
   BIRTHDAY: 'Birthday',
@@ -15,4 +19,4 @@ const screenNavigation: Mapping = {
 const BACKGROUND_INTRO = require('./../../assets/images/intro-home.jpeg');
 const LOGO = require('./../../assets/images/logo-large.png');
 
-export {screenNavigation, BACKGROUND_INTRO, LOGO};
+export {screenNavigation, BACKGROUND_INTRO, LOGO, StatusCodeHttp};
