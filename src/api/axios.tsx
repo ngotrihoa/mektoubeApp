@@ -7,16 +7,16 @@ const setAuthorization = (responseData: any) => {
   setDataStorage('token', responseData.token);
 };
 
-const combineConfigHeader = (config = {}) => {
-  if (config) {
-    return {...axios.defaults.headers, ...config};
+const combineConfigHeader = (headers = {}) => {
+  if (headers) {
+    return {...axios.defaults.headers, ...headers};
   }
   return axios.defaults.headers;
 };
 
 const get = async (api: AxiosInstance, url: string, config = {}) => {
-  const headers = combineConfigHeader(config);
-  return api.get(url, {headers});
+  const headers = combineConfigHeader(config.headers);
+  return api.get(url, {headers, params: config.params});
 };
 const post = async (
   api: AxiosInstance,
@@ -24,15 +24,15 @@ const post = async (
   data = {},
   config = {},
 ) => {
-  const headers = combineConfigHeader(config);
+  const headers = combineConfigHeader(config.headers);
   return api.post(url, data, {headers});
 };
 const put = async (api: AxiosInstance, url: string, data = {}, config = {}) => {
-  const headers = combineConfigHeader(config);
+  const headers = combineConfigHeader(config.headers);
   return api.put(url, data, {headers});
 };
 const deleteMethod = async (api: AxiosInstance, url: string, config = {}) => {
-  const headers = combineConfigHeader(config);
+  const headers = combineConfigHeader(config.headers);
   return api.get(url, {headers});
 };
 

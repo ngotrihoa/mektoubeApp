@@ -7,7 +7,7 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(request => {
-  console.log(request);
+  console.log('🚀 ~ request', request);
   return request;
 });
 
@@ -16,6 +16,18 @@ const getCountries = (payload: {}) => {
   return get(axiosClient, '/atlas/countries', payload);
 };
 
-export {getCountries};
+const getOrigins = (payload: {}) => {
+  return get(axiosClient, '/geonames/origins', payload);
+};
+
+const getCityByGeolocation = (payload: any) => {
+  return get(axiosClient, 'atlas/location', payload);
+};
+
+const getRegionByCountry = (payload: any) => {
+  return get(axiosClient, `atlas/${payload.idCountry}/regions`, payload);
+};
+
+export {getCountries, getOrigins, getCityByGeolocation, getRegionByCountry};
 
 export default axiosClient;

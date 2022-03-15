@@ -85,15 +85,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 16,
     borderColor: '#EAEAEB',
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 8,
     position: 'relative',
   },
   iconShowPassword: {
     position: 'absolute',
-    right: -10,
-    transform: [{scale: 1.5}],
-    bottom: 10,
+    right: 0,
+    bottom: 0,
   },
   errorContainer: {
     width: '100%',
@@ -123,14 +122,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#24cf5f',
     marginVertical: 24,
     borderRadius: 8,
-    paddingVertical: 8,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textContact: {
+    color: '#7f7f7f',
+    fontSize: 14,
+    paddingLeft: 2,
+    fontWeight: '600',
+    textDecorationLine: 'underline',
   },
   textBtn: {
     fontWeight: '700',
     fontSize: 15,
+    textTransform: 'uppercase',
   },
   formInput: {},
   formContent: {},
+  inputError: {
+    borderColor: '#FF0000',
+  },
 });
 
 export default styles;

@@ -6,12 +6,7 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
   },
-  header: {
-    paddingTop: 40,
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 20,
-  },
+
   boxIcon: {
     width: 70,
     height: 70,
@@ -22,28 +17,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff30',
   },
-  headerLeft: {
-    flexBasis: '25%',
-    paddingLeft: 20,
-  },
-  headerTitle: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  headerRight: {
-    flexBasis: '25%',
-    paddingRight: 20,
-  },
+
   content: {
     paddingHorizontal: 20,
-    marginTop: 26,
     flex: 1,
   },
-  textContent: {
+  titleContent: {
     fontSize: 22,
     textAlign: 'center',
-    fontFamily: 'AvenirNextCondensed_Bold',
     fontWeight: '600',
+    maxWidth: '50%',
+  },
+  boxTitle: {
+    width: '100%',
+    marginBottom: 26,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   list: {},
   listItem: {
@@ -55,7 +45,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontWeight: '600',
-    fontFamily: 'AvenirNextCondensed_Bold',
   },
   bottom: {
     width: '100%',

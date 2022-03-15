@@ -1,50 +1,74 @@
 import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {IconButton} from 'react-native-paper';
+import LinearGradient from 'react-native-linear-gradient';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch, useSelector} from 'react-redux';
+import HeaderSignup from '../../../../common/components/HeaderSignup';
 import Text from '../../../../common/components/MyAppText';
 import RadioItem from '../../../../common/components/RadioItem';
-import LinearGradient from 'react-native-linear-gradient';
-import Entypo from 'react-native-vector-icons/Entypo';
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {screenNavigation} from '../../../../common/const';
+import {setEntity as setEntityStore} from '../../../../redux/actions/signupActions';
+import {setSnackbar} from '../../../../redux/actions/uiAction';
+import {selectEntityStore} from '../../../../redux/selector/signupSelector';
 import classes from './styles';
 
 const EntityScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp>();
+  const entityStore = useSelector(selectEntityStore);
+  const [entity, setEntity] = useState(entityStore || '');
+
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handlePressEntity = () => {
+    if (entity === 'Male' || entity === 'Female') {
+      dispatch(setEntityStore(entity));
+      navigation.navigate(screenNavigation.BIRTHDAY);
+    } else {
+      dispatch(setSnackbar({type: 'error', message: 'Le champ est vide'}));
+    }
+  };
+
   return (
     <LinearGradient colors={['#FF59F4', '#FF5978']} style={classes.background}>
-      <View style={classes.header}>
-        <View style={classes.headerLeft}>
-          <TouchableOpacity>
-            <Entypo name="chevron-left" color="#fff" size={22} />
-          </TouchableOpacity>
-        </View>
-        <View style={classes.headerTitle}>
+      <HeaderSignup
+        onGoBack={() => navigation.goBack()}
+        HeaderTitle={() => (
           <View style={classes.boxIcon}>
-            <MaterialIcon name="gender-male-female" color="#fff" size={28} />
+            <MaterialCommunityIcons
+              name="gender-male-female"
+              color="#fff"
+              size={28}
+            />
           </View>
-        </View>
-        <View style={classes.headerRight} />
-      </View>
+        )}
+      />
 
       <View style={classes.content}>
-        <Text style={classes.textContent}>Vous êtes : </Text>
+        <View style={classes.boxTitle}>
+          <Text style={classes.titleContent}>Vous êtes : </Text>
+        </View>
         <View style={classes.list}>
-          <View style={classes.listItem}>
+          <TouchableOpacity
+            style={classes.listItem}
+            onPress={() => setEntity('Male')}>
             <Text style={classes.label}>Un homme</Text>
-            <RadioItem />
-          </View>
-          <View style={classes.listItem}>
+            <RadioItem checked={entity === 'Male'} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={classes.listItem}
+            onPress={() => setEntity('Female')}>
             <Text style={classes.label}>Une femme</Text>
-            <RadioItem />
-          </View>
+            <RadioItem checked={entity === 'Female'} />
+          </TouchableOpacity>
         </View>
       </View>
 
       <View style={classes.bottom}>
-        <TouchableOpacity style={classes.boxIconButton}>
-          <MaterialIcon name="check" color="#fff" size={24} />
+        <TouchableOpacity
+          style={classes.boxIconButton}
+          onPress={handlePressEntity}>
+          <MaterialCommunityIcons name="check" color="#fff" size={24} />
         </TouchableOpacity>
       </View>
     </LinearGradient>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 interface RadioItemProps {
   colorUnchecked?: string;
@@ -13,15 +13,15 @@ const RadioItem: React.FC<RadioItemProps> = ({
   colorChecked = '#fff',
 }) => {
   return (
-    <TouchableWithoutFeedback accessibilityRole="radio">
-      <View
-        style={[
-          styles.radio,
-          {borderColor: checked ? colorChecked : colorUnchecked},
-        ]}>
+    <View
+      style={[
+        styles.radio,
+        {borderColor: checked ? colorChecked : colorUnchecked},
+      ]}>
+      {checked && (
         <View style={[styles.active, {backgroundColor: colorChecked}]} />
-      </View>
-    </TouchableWithoutFeedback>
+      )}
+    </View>
   );
 };
 
@@ -31,9 +31,6 @@ const styles = StyleSheet.create({
     height: 22,
     borderRadius: 1000,
     borderWidth: 2,
-    // borderColor: '#7196B9',
-    borderColor: '#24cf5f',
-
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'center',
@@ -41,7 +38,6 @@ const styles = StyleSheet.create({
   active: {
     width: 12,
     height: 12,
-    backgroundColor: '#24cf5f',
     borderRadius: 10000,
     transform: [{translateY: 3}],
   },

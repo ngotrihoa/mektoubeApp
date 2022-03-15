@@ -1,146 +1,197 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
-import {TextInput, View} from 'react-native';
-import {Button} from 'react-native-paper';
-import {signin} from '../../../api/axiosAuth';
+import {TextInput, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, IconButton} from 'react-native-paper';
+import {useDispatch, useSelector} from 'react-redux';
 import Text from '../../../common/components/MyAppText';
 import RadioItem from '../../../common/components/RadioItem';
+import {signinActions} from '../../../redux/actions/authActions';
+import {
+  selectAuthError,
+  selectIsLoadingAuth,
+} from '../../../redux/selector/authSelector';
 import classes from './styles';
+type FormValues = {
+  email: string;
+  password: string;
+};
 
-const SigninForm = () => {
-  type FormValues = {
-    email: string;
-    password: string;
-  };
+const SigninForm = ({onSignup}) => {
+  const [typeSignin, setTypeSignin] = useState('email');
+  const [isShowPass, setIsShowPass] = useState(false);
+  const [formError, setFormError] = useState({});
+
+  const isSigning = useSelector(selectIsLoadingAuth);
+  const authError = useSelector(selectAuthError);
+  const dispatch = useDispatch();
+
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<FormValues>({
     mode: 'onSubmit',
-    reValidateMode: 'onChange',
+    reValidateMode: 'onSubmit',
     defaultValues: {},
   });
 
-  const onSubmit: SubmitHandler<FormValues> = async data => {
-    console.log('🚀 ~ data', data);
-    const formData = new FormData();
+  const {email: emailError, password: passwordError} = errors;
 
-    formData.append('login', data.email);
-    formData.append('password', data.password);
-    formData.append('validitySeconds', 670000);
-    const res = await signin({
-      login: data.email,
-      password: data.password,
-      validitySeconds: 670000,
-    });
-    console.log('🚀 ~ res', res);
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    dispatch(signinActions(data));
   };
+
+  useEffect(() => {
+    if (emailError) {
+      setFormError({
+        name: 'email',
+        message: emailError.message,
+        type: emailError.type,
+      });
+    } else if (passwordError) {
+      setFormError({
+        name: 'password',
+        message: passwordError.message,
+        type: passwordError.type,
+      });
+    } else if (authError) {
+      setFormError({
+        name: 'Signin Failed',
+        message: authError.message,
+        type: authError.name,
+      });
+    } else setFormError({});
+  }, [emailError, passwordError, authError]);
 
   return (
     <View style={classes.formContainer}>
       <View style={classes.formHeadType}>
-        <View style={classes.checkbox}>
-          <RadioItem checked={true} colorChecked="#24cf5f" />
+        <TouchableOpacity
+          style={classes.checkbox}
+          onPress={() => setTypeSignin('email')}>
+          <RadioItem
+            checked={typeSignin === 'email'}
+            colorChecked="#24cf5f"
+            colorUnchecked="#7196B9"
+          />
           <Text style={classes.checkboxLabel}>Email</Text>
-        </View>
-        <View style={classes.checkbox}>
-          <RadioItem checked={false} colorChecked="#24cf5f" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={classes.checkbox}
+          onPress={() => setTypeSignin('phone')}>
+          <RadioItem
+            checked={typeSignin === 'phone'}
+            colorChecked="#24cf5f"
+            colorUnchecked="#7196B9"
+          />
           <Text style={classes.checkboxLabel}>Numéro de téléphone</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={classes.errorContainer}>
-        <View style={classes.errorBox}>
-          <Text style={classes.errorText}>jkhjkh</Text>
-        </View>
+        {formError && Object.keys(formError).length > 0 && (
+          <View style={classes.errorBox}>
+            <Text style={classes.errorText}>{formError?.message}</Text>
+          </View>
+        )}
       </View>
 
       <View style={classes.formContent}>
-        <View style={classes.formInput}>
-          <Text style={classes.inputLabel}>Email</Text>
+        {typeSignin === 'email' ? (
+          <View style={classes.formInput}>
+            <Text style={classes.inputLabel}>Email</Text>
 
-          <Controller
-            name="email"
-            control={control}
-            render={({field: {onChange, value}}) => (
-              <TextInput
-                value={value}
-                style={classes.inputItem}
-                placeholder="example@example.com"
-                onChangeText={onChange}
-              />
-            )}
-          />
-        </View>
+            <Controller
+              name="email"
+              control={control}
+              render={({field: {onChange, value, name}}) => (
+                <TextInput
+                  value={value}
+                  style={[
+                    classes.inputItem,
+                    formError?.name === name ? classes.inputError : null,
+                  ]}
+                  placeholder="example@example.com"
+                  onChangeText={onChange}
+                />
+              )}
+              rules={{required: {value: true, message: 'Email required'}}}
+            />
+          </View>
+        ) : (
+          <View style={classes.formInput}>
+            <Text style={classes.inputLabel}>Phone</Text>
+
+            <Controller
+              name="email"
+              control={control}
+              render={({field: {onChange, value, name}}) => (
+                <TextInput
+                  value={value}
+                  style={[
+                    classes.inputItem,
+                    formError?.name === name ? classes.inputError : null,
+                  ]}
+                  placeholder="example@example.com"
+                  onChangeText={onChange}
+                />
+              )}
+              rules={{required: {value: true, message: 'Email required'}}}
+            />
+          </View>
+        )}
+
         <View
           style={[classes.formInput, {marginTop: 16, position: 'relative'}]}>
           <Text style={classes.inputLabel}>Mot de Passe</Text>
           <Controller
             name="password"
             control={control}
-            render={({field: {onChange, value}}) => (
+            render={({field: {onChange, value, name}}) => (
               <TextInput
-                style={classes.inputItem}
-                secureTextEntry={true}
+                style={[
+                  classes.inputItem,
+                  {paddingRight: 50},
+                  formError?.name === name ? classes.inputError : null,
+                ]}
+                secureTextEntry={isShowPass ? false : true}
                 value={value}
                 placeholder="Votre mot de passe"
                 onChangeText={onChange}
               />
             )}
+            rules={{required: {value: true, message: 'Password require'}}}
           />
-          <Button
+          <IconButton
             style={classes.iconShowPassword}
-            icon="eye"
+            icon={isShowPass ? 'eye-off' : 'eye'}
             color="rgb(146, 150, 153)"
             children
+            onPress={() => setIsShowPass(prev => !prev)}
           />
-          {/* <TextInput
-            style={classes.inputItem}
-            secureTextEntry={true}
-            placeholder="Votre mot de passe"
-          />
-          <Button
-            style={classes.iconShowPassword}
-            icon="eye"
-            color="rgb(146, 150, 153)"
-          /> */}
         </View>
         <View style={classes.linkAction}>
           <Text style={{fontSize: 13, color: '#24cf5f', fontWeight: '600'}}>
             Mot de passe oublié ?
           </Text>
           <View style={{flexDirection: 'row'}}>
-            <Text
-              style={{
-                fontSize: 14,
-                paddingLeft: 2,
-                textDecorationLine: 'underline',
-              }}>
-              Nous contacter
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                paddingLeft: 2,
-              }}>
+            <Text style={classes.textContact}>Nous contacter</Text>
+            <Text style={[classes.textContact, {textDecorationLine: 'none'}]}>
               ou
             </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                paddingLeft: 2,
-                textDecorationLine: 'underline',
-              }}>
-              Aide
-            </Text>
+            <Text style={classes.textContact}>Aide</Text>
           </View>
         </View>
-        <Button
-          mode="contained"
-          style={classes.btn}
+
+        <TouchableOpacity
+          disabled={isSigning ? true : false}
+          style={[classes.btn, isSigning ? {backgroundColor: '#ccc'} : null]}
           onPress={handleSubmit(onSubmit)}>
-          <Text style={classes.textBtn}>me connecter</Text>
-        </Button>
+          {isSigning ? (
+            <ActivityIndicator animating={true} color="#fff" size={40} />
+          ) : (
+            <Text style={classes.textBtn}>me connecter</Text>
+          )}
+        </TouchableOpacity>
       </View>
 
       <View
@@ -158,7 +209,8 @@ const SigninForm = () => {
             fontWeight: '600',
             letterSpacing: 0,
             marginLeft: 5,
-          }}>
+          }}
+          onPress={onSignup}>
           Inscrivez-vous gratuitement
         </Text>
       </View>

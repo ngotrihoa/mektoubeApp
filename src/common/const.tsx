@@ -3,7 +3,7 @@ interface Mapping {
 }
 
 const StatusCodeHttp = {
-  SUCCESS: '200',
+  SUCCESS: 200,
 };
 
 const screenNavigation: Mapping = {
@@ -11,6 +11,9 @@ const screenNavigation: Mapping = {
   BIRTHDAY: 'Birthday',
   ORIGIN: 'Origin',
   COUNTRY: 'Country',
+  LOCATION: 'Location',
+  CITY: 'City',
+  REGION: 'Region',
   SIGNUP_FLOW: 'SignupFlow',
   SIGNUP: 'Signup',
   SIGNIN: 'Signin',

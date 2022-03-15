@@ -9,15 +9,17 @@ import SigninForm from './SigninForm';
 import classes from './styles';
 
 const SigninScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp>();
+  const navigation = useNavigation();
   const [isShowSignin, setIsShowSignin] = useState<boolean>(false);
 
   const handlePressSignin = () => {
     setIsShowSignin(prev => !prev);
   };
 
-  const handlePressSignup = () =>
+  const handlePressSignup = () => {
+    setIsShowSignin(false);
     navigation.navigate(screenNavigation.SIGNUP_FLOW);
+  };
 
   return (
     <ImageBackground
@@ -50,7 +52,7 @@ const SigninScreen = () => {
           show={isShowSignin}
           header="Connexion"
           onClose={() => setIsShowSignin(false)}>
-          <SigninForm />
+          <SigninForm onSignup={handlePressSignup} />
         </BottomSheet>
       )}
     </ImageBackground>
