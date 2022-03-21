@@ -1,19 +1,21 @@
-import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SigninScreen} from '../../screens';
-import SignupNavigation from './SignupNavigation';
-import HomeScreen from '../../screens/Home';
-import {selectIsLogin} from '../../redux/selector/authSelector';
+import React from 'react';
 import {useSelector} from 'react-redux';
+import {selectIsLogin} from '../../redux/selector/authSelector';
+import {SigninScreen} from '../../screens';
+import BottomTabHome from '../Home';
+import SignupNavigation from './SignupNavigation';
 
 const Stack = createNativeStackNavigator();
 const AuthNavigation = () => {
   const isLogin = useSelector(selectIsLogin);
 
   return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{headerShown: false}}>
       {isLogin ? (
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" component={BottomTabHome} />
       ) : (
         <>
           <Stack.Screen name="Signin" component={SigninScreen} />

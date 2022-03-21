@@ -31,4 +31,10 @@ const uiActionType = {
   SET_SPIN_LOADING_GLOBAL: 'ui/setSpinLoadingGlobal',
 };
 
-export {authActionType, uiActionType, signupActionType};
+const homeActionType = {
+  GET_LIST_USERS: 'home/getLListUser',
+  GET_LIST_USERS_SUCCEED: 'home/getLListUserSucceed',
+  GET_LIST_USERS_FAILED: 'home/getLListUserFailed',
+};
+
+export {authActionType, uiActionType, signupActionType, homeActionType};

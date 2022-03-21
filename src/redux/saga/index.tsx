@@ -1,7 +1,12 @@
 import {all, takeLatest} from 'redux-saga/effects';
-import {authActionType, signupActionType} from '../actions/actionsType';
+import {
+  authActionType,
+  signupActionType,
+  homeActionType,
+} from '../actions/actionsType';
 import authSaga from './authSaga';
 import signupSaga from './signupSaga';
+import homeSaga from './homeSaga';
 
 function* rootSaga() {
   yield all([
@@ -16,6 +21,7 @@ function* rootSaga() {
       signupActionType.GET_REGION_BY_COUNTRY,
       signupSaga.getRegionByCountry,
     ),
+    takeLatest(homeActionType.GET_LIST_USERS, homeSaga.getListUser),
   ]);
 }
 

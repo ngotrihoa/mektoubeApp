@@ -28,6 +28,16 @@ const getRegionByCountry = (payload: any) => {
   return get(axiosClient, `atlas/${payload.idCountry}/regions`, payload);
 };
 
-export {getCountries, getOrigins, getCityByGeolocation, getRegionByCountry};
+const getListUser = (payload: {}) => {
+  return get(axiosClient, '/users/pool', payload);
+};
+
+export {
+  getCountries,
+  getOrigins,
+  getCityByGeolocation,
+  getRegionByCountry,
+  getListUser,
+};
 
 export default axiosClient;

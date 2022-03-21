@@ -27,6 +27,7 @@ axiosAuth.interceptors.response.use(
   err => {
     console.log(err.message);
     removeDataStorage('token');
+    removeDataStorage('puk');
     return Promise.reject(err);
   },
 );
