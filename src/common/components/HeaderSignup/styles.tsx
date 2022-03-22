@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 20,
+    paddingHorizontal: 20,
   },
   boxIcon: {
     width: 70,
@@ -18,16 +19,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff30',
   },
   headerLeft: {
-    flexBasis: '25%',
-    paddingLeft: 20,
+    flexBasis: '30%',
   },
   headerTitle: {
     flex: 1,
     alignItems: 'center',
   },
   headerRight: {
-    flexBasis: '25%',
-    paddingRight: 20,
+    flexBasis: '30%',
   },
 });
 

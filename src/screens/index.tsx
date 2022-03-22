@@ -7,4 +7,5 @@ export {default as LocationScreen} from './Auth/Signup/LocationScreen';
 export {default as CityScreen} from './Auth/Signup/CityScreen';
 export {default as CountryScreen} from './Auth/Signup/CountryScreen';
 export {default as RegionScreen} from './Auth/Signup/RegionScreen';
+export {default as ZipcodeScreen} from './Auth/Signup/ZipcodeScreen';
 export {default as HomeScreen} from './Home';

@@ -33,6 +33,7 @@ const getOriginAsyncSucceed = (payload: any) => {
     payload,
   };
 };
+
 const getOriginAsyncFailed = (payload: any) => {
   return {
     type: signupActionType.GET_ASYNC_ORIGIN_FAILED,
@@ -61,21 +62,42 @@ const getCityByGeolocationFailed = (payload: any) => {
   };
 };
 
-const setSelectedCityStore = payload => {
+const getCityByRegion = (payload: any) => {
+  return {
+    type: signupActionType.GET_CITY_BY_REGION,
+    payload,
+  };
+};
+
+const getCityByRegionSucceed = (payload: any) => {
+  return {
+    type: signupActionType.GET_CITY_BY_REGION_SUCCEED,
+    payload,
+  };
+};
+
+const getCityByRegionFailed = (payload: any) => {
+  return {
+    type: signupActionType.GET_CITY_BY_REGION_FAILED,
+    payload,
+  };
+};
+
+const setSelectedCityStore = (payload: any) => {
   return {
     type: signupActionType.SET_SELECTED_CITY,
     payload,
   };
 };
 
-const setSelectedCountryStore = payload => {
+const setSelectedCountryStore = (payload: any) => {
   return {
-    type: signupActionType.SET_SELECTED_CITY,
+    type: signupActionType.SET_SELECTED_COUNTRY,
     payload,
   };
 };
 
-const setSelectedRegionStore = payload => {
+const setSelectedRegionStore = (payload: any) => {
   return {
     type: signupActionType.SET_SELECTED_REGION,
     payload,
@@ -141,4 +163,7 @@ export {
   getRegionByCountry,
   getRegionByCountryFailed,
   getRegionByCountrySucceed,
+  getCityByRegion,
+  getCityByRegionFailed,
+  getCityByRegionSucceed,
 };

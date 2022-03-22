@@ -26,6 +26,7 @@ const authSaga = {
       }
     } catch (error) {
       const errorResponse = error.response;
+      console.log('🚀 ~ errorResponse', errorResponse);
       yield put(signinFailedActions(errorResponse));
     }
   },

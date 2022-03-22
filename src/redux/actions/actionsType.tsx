@@ -24,6 +24,9 @@ const signupActionType = {
   GET_REGION_BY_COUNTRY: 'signup/getRegionByCountry',
   GET_REGION_BY_COUNTRY_SUCCEED: 'signup/getRegionByCountrySucceed',
   GET_REGION_BY_COUNTRY_FAILED: 'signup/getRegionByCountryFailed',
+  GET_CITY_BY_REGION: 'signup/getCityByRegion',
+  GET_CITY_BY_REGION_SUCCEED: 'signup/getCityByRegionSucceed',
+  GET_CITY_BY_REGION_FAILED: 'signup/getCityByRegionFailed',
 };
 
 const uiActionType = {
@@ -35,6 +38,10 @@ const homeActionType = {
   GET_LIST_USERS: 'home/getLListUser',
   GET_LIST_USERS_SUCCEED: 'home/getLListUserSucceed',
   GET_LIST_USERS_FAILED: 'home/getLListUserFailed',
+  GET_MORE_USERS: 'home/getMoreUser',
+  GET_MORE_USERS_SUCCEED: 'home/getMoreUserSucceed',
+  GET_MORE_USERS_FAILED: 'home/getMoreUserFailed',
+  SET_IS_LOADING: 'home/setIsLoading',
 };
 
 export {authActionType, uiActionType, signupActionType, homeActionType};

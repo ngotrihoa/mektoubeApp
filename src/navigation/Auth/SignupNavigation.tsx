@@ -10,6 +10,7 @@ import {
   OriginScreen,
   RegionScreen,
   SignupScreen,
+  ZipcodeScreen,
 } from '../../screens';
 
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ const SignupNavigation = () => {
         name={screenNavigation.LOCATION}
         component={LocationScreen}
       />
+      <Stack.Screen name={screenNavigation.ZIPCODE} component={ZipcodeScreen} />
       <Stack.Screen name={screenNavigation.CITY} component={CityScreen} />
     </Stack.Navigator>
   );

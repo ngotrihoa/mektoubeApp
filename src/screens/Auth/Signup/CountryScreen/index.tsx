@@ -42,8 +42,9 @@ const CountryScreen = () => {
     if (!selectedCountry || Object.keys(selectedCountry).length < 1) {
       dispatch(setSnackbar({type: 'error', message: 'Le champ est vide'}));
     } else {
+      dispatch(setSelectedCountryStore(selectedCountry));
       if (selectedCountry.zipFormat && selectedCountry.zipRegex) {
-        console.log('Have zipcode');
+        navigation.navigate(screenNavigation.ZIPCODE);
       } else {
         dispatch(getRegionByCountry({idCountry: selectedCountry.id}));
         navigation.navigate(screenNavigation.REGION);

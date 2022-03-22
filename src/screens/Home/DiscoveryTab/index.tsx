@@ -1,27 +1,30 @@
+import React, {useLayoutEffect, useRef} from 'react';
 import {
-  View,
-  Image,
-  TouchableOpacity,
   Animated,
-  ScrollView,
   Dimensions,
   FlatList,
+  Image,
+  RefreshControl,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React, {useEffect, useLayoutEffect, useRef} from 'react';
-import classes from './styles';
-import {DISCOVERY_BANNER} from '../../../common/const';
-import Text from '../../../common/components/MyAppText';
-// import {
-//   AntDesign,
-//   Ionicons,
-//   MaterialCommunityIcons,
-// } from "@expo/vector-icons";
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectListUser} from '../../../redux/selector/homeSelector';
-import {getListUserAction} from '../../../redux/actions/homeAction';
+import Text from '../../../common/components/MyAppText';
+import Skeleton from '../../../common/components/Skeleton';
+import {DISCOVERY_BANNER} from '../../../common/const';
+import {
+  getListUserAction,
+  getMoreUserAction,
+  setIsLoadingAction,
+} from '../../../redux/actions/homeAction';
+import {
+  selectIsHomeLoading,
+  selectListUser,
+} from '../../../redux/selector/homeSelector';
+import classes from './styles';
 
 const ListUsersItem = ({user}) => {
   return (
@@ -59,12 +62,12 @@ const ListUsersItem = ({user}) => {
 
 const DiscoveryTab = () => {
   const listUsers = useSelector(selectListUser);
+  const isLoading = useSelector(selectIsHomeLoading);
   const dispatch = useDispatch();
 
   const {width, height} = Dimensions.get('window');
+  const flatListRef = useRef(null);
   let scrollY = useRef(new Animated.Value(0)).current;
-  const HeaderMaxHeight = height * 1;
-  const HeaderMinHeight = 50;
 
   const translateY = scrollY.interpolate({
     inputRange: [0, 1],
@@ -76,13 +79,29 @@ const DiscoveryTab = () => {
     if (!listUsers || listUsers?.length < 1) {
       dispatch(getListUserAction({}));
     }
-  }, [listUsers]);
+  }, []);
+
+  const handleGetMoreUsers = () => {
+    dispatch(getMoreUserAction());
+  };
+
+  const handleRefresh = () => {
+    dispatch(setIsLoadingAction(true));
+    dispatch(getListUserAction({}));
+  };
+
+  const handlePressReset = () => {
+    dispatch(getListUserAction({}));
+    flatListRef.current.scrollToOffset({animated: true, offset: 0});
+  };
 
   return (
     <View style={classes.root}>
       <Animated.View style={[classes.header, {transform: [{translateY}]}]}>
         <View style={classes.headerLeft}>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <TouchableOpacity
+            style={{flexDirection: 'row', alignItems: 'center'}}
+            onPress={handlePressReset}>
             <AntDesign name="reload1" color="#989CA0" size={24} />
             <Text
               style={{
@@ -93,7 +112,7 @@ const DiscoveryTab = () => {
               }}>
               Reset
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={classes.headerTitle}>
           <Text style={classes.headerTitleText}>Découvrir</Text>
@@ -132,6 +151,7 @@ const DiscoveryTab = () => {
 
       <View>
         <FlatList
+          ref={flatListRef}
           ListHeaderComponent={() => (
             <>
               <View style={classes.imageHeroContainer}>
@@ -167,25 +187,61 @@ const DiscoveryTab = () => {
               </View>
             </>
           )}
-          ListFooterComponent={() => (
-            <View>
-              <Text>Bottom</Text>
-            </View>
-          )}
+          ListFooterComponent={() => {
+            // if (!isLoading) {
+            //   return null;
+            // }
+            return (
+              <View style={[classes.listSkeleton, {flexDirection: 'row'}]}>
+                <Skeleton
+                  width={width * 0.42}
+                  height={180}
+                  style={classes.listSkeletonItem}
+                />
+                <Skeleton
+                  width={width * 0.42}
+                  height={180}
+                  style={classes.listSkeletonItem}
+                />
+                <Skeleton
+                  width={width * 0.42}
+                  height={180}
+                  style={classes.listSkeletonItem}
+                />
+                <Skeleton
+                  width={width * 0.42}
+                  height={180}
+                  style={classes.listSkeletonItem}
+                />
+              </View>
+            );
+          }}
           data={listUsers || []}
           renderItem={item => <ListUsersItem user={item.item} />}
           numColumns={2}
-          keyExtractor={item => item.uuid}
+          keyExtractor={(item, index) => `${item.uuid} + ${index}`}
           scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {y: scrollY}}}],
-            {useNativeDriver: false},
-          )}
+          // onScroll={Animated.event(
+          //   [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          //   {useNativeDriver: false},
+          // )}
           onScroll={e => {
             scrollY.setValue(e.nativeEvent.contentOffset.y);
           }}
+          removeClippedSubviews={true}
           columnWrapperStyle={classes.listUsers}
           ListFooterComponentStyle={{paddingBottom: 80}}
+          onEndReached={handleGetMoreUsers}
+          onEndReachedThreshold={0.7}
+          maxToRenderPerBatch={10}
+          updateCellsBatchingPeriod={200}
+          refreshControl={
+            <RefreshControl
+              colors={['red', 'tomato']}
+              onRefresh={handleRefresh}
+              refreshing={isLoading}
+            />
+          }
         />
       </View>
     </View>

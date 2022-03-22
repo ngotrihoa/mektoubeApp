@@ -1,6 +1,7 @@
 import {all, call, put} from 'redux-saga/effects';
 import {
   getCityByGeolocation,
+  getCityByRegion,
   getCountries,
   getOrigins,
   getRegionByCountry,
@@ -9,6 +10,8 @@ import {StatusCodeHttp} from '../../common/const';
 import {
   getCityByGeolocationFailed,
   getCityByGeolocationSucceed,
+  getCityByRegionFailed,
+  getCityByRegionSucceed,
   getCountryAsyncSucceed,
   getOriginAsyncFailed,
   getOriginAsyncSucceed,
@@ -93,6 +96,24 @@ const signupSaga = {
       const responseError = error.response;
       yield all([
         put(getRegionByCountryFailed(responseError)),
+        put(setSpinLoadingGlobal(false)),
+      ]);
+    }
+  },
+  *getCityByRegion(action) {
+    try {
+      yield put(setSpinLoadingGlobal(true));
+      const response = yield call(() => getCityByRegion(action.payload || {}));
+      if (response.status === StatusCodeHttp.SUCCESS) {
+        yield all([
+          put(getCityByRegionSucceed(response.data.CONTENT.ALL)),
+          put(setSpinLoadingGlobal(false)),
+        ]);
+      }
+    } catch (error) {
+      const responseError = error.response;
+      yield all([
+        put(getCityByRegionFailed(responseError)),
         put(setSpinLoadingGlobal(false)),
       ]);
     }

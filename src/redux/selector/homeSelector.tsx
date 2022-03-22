@@ -4,4 +4,9 @@ const selectSelf = state => state.home;
 
 const selectListUser = createSelector(selectSelf, state => state.listUsers);
 
-export {selectListUser};
+const selectIsHomeLoading = createSelector(
+  selectSelf,
+  state => state.isLoading,
+);
+
+export {selectListUser, selectIsHomeLoading};

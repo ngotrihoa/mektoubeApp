@@ -8,8 +8,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import HeaderSignup from '../../../../common/components/HeaderSignup';
 import Text from '../../../../common/components/MyAppText';
 import RadioItem from '../../../../common/components/RadioItem';
+import {screenNavigation} from '../../../../common/const';
+import {getCityByRegion} from '../../../../redux/actions/signupActions';
 import {setSnackbar} from '../../../../redux/actions/uiAction';
 import {
+  selectCountrySelected,
   selectRegionSelected,
   selectRegionsStore,
 } from '../../../../redux/selector/signupSelector';
@@ -20,6 +23,7 @@ const RegionScreen = () => {
   const dispatch = useDispatch();
   const regionsStore = useSelector(selectRegionsStore);
   const selectedRegionsStore = useSelector(selectRegionSelected);
+  const selectedCountryStore = useSelector(selectCountrySelected);
 
   const [regions, setRegions] = useState(regionsStore || []);
   const [selectedRegion, setSelectedRegion] = useState(selectedRegionsStore);
@@ -37,7 +41,13 @@ const RegionScreen = () => {
     if (!selectedRegion || Object.keys(selectedRegion).length < 1) {
       dispatch(setSnackbar({type: 'error', message: 'Le champ est vide'}));
     } else {
-      // if(selectedRegion.zipFormat && selectedRegion.zipRegex)
+      dispatch(
+        getCityByRegion({
+          country: selectedCountryStore,
+          region: selectedRegion,
+        }),
+      );
+      navigation.navigate(screenNavigation.CITY);
     }
   };
 

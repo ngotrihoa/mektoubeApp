@@ -17,11 +17,13 @@ function* rootSaga() {
       signupSaga.getCityByGeolocation,
     ),
     takeLatest(signupActionType.GET_ASYNC_COUNTRY, signupSaga.getCountryAsync),
+    takeLatest(signupActionType.GET_CITY_BY_REGION, signupSaga.getCityByRegion),
     takeLatest(
       signupActionType.GET_REGION_BY_COUNTRY,
       signupSaga.getRegionByCountry,
     ),
     takeLatest(homeActionType.GET_LIST_USERS, homeSaga.getListUser),
+    takeLatest(homeActionType.GET_MORE_USERS, homeSaga.getMoreUser),
   ]);
 }
 
