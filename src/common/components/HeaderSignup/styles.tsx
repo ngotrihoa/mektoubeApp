@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {Platform, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   header: {
-    paddingTop: 40,
+    paddingTop: Platform.OS === 'ios' ? 40 : 10,
     flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: 20,

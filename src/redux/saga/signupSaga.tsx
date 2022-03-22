@@ -54,9 +54,10 @@ const signupSaga = {
       }
     } catch (error) {
       const responseError = error.response;
+      console.log('🚀 ~ responseError', responseError);
       yield all([
-        put(getCityByGeolocationFailed(responseError)),
         put(setSpinLoadingGlobal(false)),
+        put(getCityByGeolocationFailed(responseError)),
       ]);
     }
   },

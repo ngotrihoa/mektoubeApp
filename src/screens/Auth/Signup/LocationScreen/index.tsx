@@ -2,19 +2,19 @@ import Geolocation from '@react-native-community/geolocation';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import Text from '../../../../common/components/MyAppText';
 import LinearGradient from 'react-native-linear-gradient';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HeaderSignup from '../../../../common/components/HeaderSignup';
-import classes from './styles';
 import {useDispatch} from 'react-redux';
+import HeaderSignup from '../../../../common/components/HeaderSignup';
+import Text from '../../../../common/components/MyAppText';
+import {screenNavigation} from '../../../../common/const';
 import {
   getCityByGeolocation,
   getCountryAsync,
 } from '../../../../redux/actions/signupActions';
-import {screenNavigation} from '../../../../common/const';
 import {setSnackbar} from '../../../../redux/actions/uiAction';
+import classes from './styles';
 
 const LocationScreen = () => {
   const navigation = useNavigation();
@@ -36,7 +36,7 @@ const LocationScreen = () => {
       },
       {
         enableHighAccuracy: true,
-        timeout: 999,
+        timeout: 20000,
       },
     );
   };

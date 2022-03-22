@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff50',
   },
+  listInput: {},
+  inputItem: {},
 });
 
 export default styles;

@@ -13,6 +13,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useDispatch, useSelector} from 'react-redux';
 import HeaderSignup from '../../../../common/components/HeaderSignup';
 import Text from '../../../../common/components/MyAppText';
+import MyInput from '../../../../common/components/MyInput';
 import {screenNavigation} from '../../../../common/const';
 import {setSnackbar} from '../../../../redux/actions/uiAction';
 import {selectCountrySelected} from '../../../../redux/selector/signupSelector';
@@ -52,27 +53,14 @@ const ZipcodeScreen = () => {
               Quel est votre code postal ?
             </Text>
           </View>
-          <TextInput
-            style={{marginHorizontal: 35, fontSize: 24}}
+          <MyInput
             value={zipcode}
+            style={{marginHorizontal: 35, fontSize: 17}}
             onChangeText={value => setZipcode(value)}
             label="Code postal ?"
             keyboardType="number-pad"
-            underlineColor="#ffffff"
-            theme={{
-              colors: {
-                text: 'white',
-                placeholder: '#d6d3cb',
-                primary: 'white',
-                background: 'transparent',
-              },
-              fonts: {
-                regular: {
-                  fontFamily: 'Avenir Next Condensed',
-                  fontWeight: '700',
-                },
-              },
-            }}
+            underlineColor="#fff"
+            activeUnderlineColor="#fff"
           />
         </View>
       </TouchableWithoutFeedback>

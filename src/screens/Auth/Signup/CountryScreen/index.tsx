@@ -76,7 +76,7 @@ const CountryScreen = () => {
           data={contries}
           keyExtractor={item => item.id}
           renderItem={renderItem}
-          style={[classes.list, {paddingHorizontal: 24}]}
+          style={[classes.list]}
         />
       </View>
 

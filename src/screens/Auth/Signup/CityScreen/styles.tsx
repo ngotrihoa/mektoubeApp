@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
 
   content: {
     flex: 1,
+    paddingHorizontal: 20,
   },
   titleContent: {
     fontSize: 22,

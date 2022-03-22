@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
-import {Button, Snackbar} from 'react-native-paper';
+import {Snackbar} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {selectSnackbar} from '../../../redux/selector/uiSelector';
-import classes from './styles';
 
 let initApp = true;
 

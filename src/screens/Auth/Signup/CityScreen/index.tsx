@@ -68,7 +68,7 @@ const CityScreen = () => {
           data={cities}
           keyExtractor={item => item.id}
           renderItem={renderItem}
-          style={[classes.list, {paddingHorizontal: 24}]}
+          style={[classes.list]}
         />
       </View>
 
