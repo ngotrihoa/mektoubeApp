@@ -188,9 +188,6 @@ const DiscoveryTab = () => {
             </>
           )}
           ListFooterComponent={() => {
-            // if (!isLoading) {
-            //   return null;
-            // }
             return (
               <View style={[classes.listSkeleton, {flexDirection: 'row'}]}>
                 <Skeleton

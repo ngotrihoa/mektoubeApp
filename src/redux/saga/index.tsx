@@ -23,6 +23,10 @@ function* rootSaga() {
       signupActionType.GET_REGION_BY_COUNTRY,
       signupSaga.getRegionByCountry,
     ),
+    takeLatest(
+      signupActionType.GET_CITY_BY_ZIPCODE,
+      signupSaga.getCityByZipcode,
+    ),
     takeLatest(homeActionType.GET_LIST_USERS, homeSaga.getListUser),
     takeLatest(homeActionType.GET_MORE_USERS, homeSaga.getMoreUser),
   ]);

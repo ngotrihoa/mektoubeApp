@@ -24,8 +24,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   const bottom = useRef(new Animated.Value(-bottomSheetHeight)).current;
 
   useEffect(() => {
-    if (show) {
-      setOpen(show);
+    if (open) {
       Animated.timing(bottom, {
         toValue: 0,
         duration: 500,
@@ -34,17 +33,13 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
     } else {
       Animated.timing(bottom, {
         toValue: -bottomSheetHeight,
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
       }).start(() => {
-        setOpen(false);
+        onClose();
       });
     }
-  }, [show]);
-
-  if (!open) {
-    return null;
-  }
+  }, [open]);
 
   return (
     <Portal>
@@ -52,7 +47,11 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
         style={[classes.root, {height: bottomSheetHeight, bottom: bottom}]}>
         <View style={classes.header}>
           <Text style={classes.headerText}>{header}</Text>
-          <IconButton style={classes.close} icon="close" onPress={onClose} />
+          <IconButton
+            style={classes.close}
+            icon="close"
+            onPress={() => setOpen(false)}
+          />
         </View>
         <View>{children}</View>
       </Animated.View>

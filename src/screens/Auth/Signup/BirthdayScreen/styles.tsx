@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 
 const height = Dimensions.get('window').height;
 
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
   inputGroup: {
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: Platform.OS === 'ios' ? 'flex-start' : 'center',
     marginBottom: 30,
     paddingVertical: 30,
   },

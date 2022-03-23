@@ -9,7 +9,10 @@ import HeaderSignup from '../../../../common/components/HeaderSignup';
 import Text from '../../../../common/components/MyAppText';
 import RadioItem from '../../../../common/components/RadioItem';
 import {screenNavigation} from '../../../../common/const';
-import {getCityByRegion} from '../../../../redux/actions/signupActions';
+import {
+  getRegionByCountry,
+  setSelectedRegionStore,
+} from '../../../../redux/actions/signupActions';
 import {setSnackbar} from '../../../../redux/actions/uiAction';
 import {
   selectCountrySelected,
@@ -41,18 +44,17 @@ const RegionScreen = () => {
     if (!selectedRegion || Object.keys(selectedRegion).length < 1) {
       dispatch(setSnackbar({type: 'error', message: 'Le champ est vide'}));
     } else {
-      dispatch(
-        getCityByRegion({
-          country: selectedCountryStore,
-          region: selectedRegion,
-        }),
-      );
-      navigation.navigate(screenNavigation.CITY);
+      dispatch(setSelectedRegionStore(selectedRegion));
+      navigation.navigate(screenNavigation.CITY, {
+        from: screenNavigation.REGION,
+      });
     }
   };
 
   useEffect(() => {
-    if (!regionsStore || regionsStore?.length < 1) return;
+    if (!regionsStore || regionsStore?.length < 1) {
+      dispatch(getRegionByCountry({idCountry: selectedCountryStore.id}));
+    }
     setRegions(regionsStore);
   }, [regionsStore]);
 
@@ -67,7 +69,7 @@ const RegionScreen = () => {
         )}
       />
 
-      <View style={classes.content}>
+      <View style={[classes.content, {paddingHorizontal: 0}]}>
         <View style={[classes.boxTitle, {paddingHorizontal: 20}]}>
           <Text style={classes.titleContent}>Quelle est votre région ?</Text>
         </View>
@@ -75,7 +77,7 @@ const RegionScreen = () => {
           data={regions}
           keyExtractor={item => item.id}
           renderItem={renderItem}
-          style={[classes.list]}
+          style={[classes.list, {paddingHorizontal: 20}]}
         />
       </View>
 

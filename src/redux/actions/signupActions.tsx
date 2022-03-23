@@ -82,6 +82,26 @@ const getCityByRegionFailed = (payload: any) => {
     payload,
   };
 };
+const getCityByZipcode = (payload: any) => {
+  return {
+    type: signupActionType.GET_CITY_BY_ZIPCODE,
+    payload,
+  };
+};
+
+const getCityByZipcodeSucceed = (payload: any) => {
+  return {
+    type: signupActionType.GET_CITY_BY_ZIPCODE_SUCCEED,
+    payload,
+  };
+};
+
+const getCityByZipcodeFailed = (payload: any) => {
+  return {
+    type: signupActionType.GET_CITY_BY_ZIPCODE_FAILED,
+    payload,
+  };
+};
 
 const setSelectedCityStore = (payload: any) => {
   return {
@@ -166,4 +186,7 @@ export {
   getCityByRegion,
   getCityByRegionFailed,
   getCityByRegionSucceed,
+  getCityByZipcode,
+  getCityByZipcodeSucceed,
+  getCityByZipcodeFailed,
 };

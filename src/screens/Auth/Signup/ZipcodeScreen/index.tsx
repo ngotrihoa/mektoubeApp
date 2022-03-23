@@ -30,7 +30,10 @@ const ZipcodeScreen = () => {
     } else if (!zipcode.match(regex)) {
       dispatch(setSnackbar({type: 'error', message: 'Invalid zipcode'}));
     } else {
-      navigation.navigate(screenNavigation.CITY);
+      navigation.navigate(screenNavigation.CITY, {
+        from: screenNavigation.ZIPCODE,
+        zipcode,
+      });
     }
   };
 

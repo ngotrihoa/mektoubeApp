@@ -22,12 +22,11 @@ const LocationScreen = () => {
   const handlePressGetLocation = () => {
     Geolocation.getCurrentPosition(
       info => {
-        const params = {
+        navigation.navigate(screenNavigation.CITY, {
+          from: screenNavigation.LOCATION,
           latitude: info.coords.latitude,
           longitude: info.coords.longitude,
-        };
-        dispatch(getCityByGeolocation({params}));
-        navigation.navigate(screenNavigation.CITY);
+        });
       },
       error => {
         dispatch(
@@ -42,7 +41,6 @@ const LocationScreen = () => {
   };
 
   const handlePressGeolocation = () => {
-    dispatch(getCountryAsync());
     navigation.navigate(screenNavigation.COUNTRY);
   };
 

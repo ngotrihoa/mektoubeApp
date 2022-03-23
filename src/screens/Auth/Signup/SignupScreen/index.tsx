@@ -69,6 +69,9 @@ const SignupScreen = () => {
   useEffect(() => {
     if (!authError || !authError.message) return;
     dispatch(setSnackbar({type: 'error', message: authError.message}));
+    return () => {
+      dispatch(resetAuthErrorAction({}));
+    };
   }, [authError]);
 
   return (
@@ -84,7 +87,6 @@ const SignupScreen = () => {
               <Text
                 style={classes.headerRight}
                 onPress={() => {
-                  dispatch(resetAuthErrorAction({}));
                   navigation.navigate(screenNavigation.SIGNIN, {login: true});
                 }}>
                 Déjà un compte ?

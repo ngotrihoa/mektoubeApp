@@ -6,6 +6,12 @@ const signinActions = (payload: any) => {
     payload,
   };
 };
+const signoutActions = (payload: any) => {
+  return {
+    type: authActionType.SIGNOUT,
+    payload,
+  };
+};
 
 const signinSucceedActions = (payload: any) => {
   return {
@@ -64,4 +70,5 @@ export {
   signupFailedActions,
   signupSucceedActions,
   resetAuthErrorAction,
+  signoutActions,
 };

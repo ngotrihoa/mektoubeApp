@@ -1,19 +1,22 @@
+import {useNavigation} from '@react-navigation/native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {FlatList, Image, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {FlatList, Image, TouchableOpacity, View} from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useDispatch, useSelector} from 'react-redux';
 import HeaderSignup from '../../../../common/components/HeaderSignup';
 import Text from '../../../../common/components/MyAppText';
-import classes from './styles';
-import {useDispatch, useSelector} from 'react-redux';
-import {setSnackbar} from '../../../../redux/actions/uiAction';
-import {useNavigation} from '@react-navigation/native';
-import {selectOriginStore} from '../../../../redux/selector/signupSelector';
-import {setOrigin} from '../../../../redux/actions/signupActions';
 import {screenNavigation} from '../../../../common/const';
+import {
+  getOriginAsync,
+  setOrigin,
+} from '../../../../redux/actions/signupActions';
+import {setSnackbar} from '../../../../redux/actions/uiAction';
+import {selectOriginStore} from '../../../../redux/selector/signupSelector';
+import classes from './styles';
 
 const SelectedOrigin = ({origins, onSelect}) => {
   const selectedOrigin = origins?.filter(item => item.selected) || [];
@@ -97,7 +100,9 @@ const OriginScreen = () => {
   };
 
   useEffect(() => {
-    if (!originStore || originStore?.length < 1) return;
+    if (!originStore || originStore?.length < 1) {
+      dispatch(getOriginAsync());
+    }
     setOrigins(originStore);
   }, [originStore]);
 

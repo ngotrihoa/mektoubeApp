@@ -1,5 +1,4 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
 import {Image, ImageBackground, TouchableOpacity, View} from 'react-native';
 import BottomSheet from '../../../common/components/BottomSheet';

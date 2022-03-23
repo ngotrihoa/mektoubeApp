@@ -44,6 +44,10 @@ const handleSetSelectedCountry = (state, payload: any) => {
   return {...state, countrySelected: payload};
 };
 
+const handleSetSelectedRegion = (state, payload: any) => {
+  return {...state, regionSelected: payload};
+};
+
 const handleGetCityByGeolocationSucceed = (state, payload) => {
   return {...state, cities: payload.cities};
 };
@@ -74,6 +78,14 @@ const handleGetCityByRegionFailed = (state, payload) => {
   return {...state};
 };
 
+const handleGetCityByZipcodeSucceed = (state, payload) => {
+  console.log('🚀 ~ payload by zipcode', payload);
+  return {...state, cities: payload.cities};
+};
+const handleGetCityByZipcodeFailed = (state, payload) => {
+  return {...state};
+};
+
 const signupReducer = (state = initialState, action) => {
   switch (action.type) {
     case signupActionType.SET_ENTITY:
@@ -86,6 +98,8 @@ const signupReducer = (state = initialState, action) => {
       return handleSetSelectedCity(state, action.payload);
     case signupActionType.SET_SELECTED_COUNTRY:
       return handleSetSelectedCountry(state, action.payload);
+    case signupActionType.SET_SELECTED_REGION:
+      return handleSetSelectedRegion(state, action.payload);
     case signupActionType.GET_ASYNC_ORIGIN_SUCCEED:
       return handleSetAsyncOriginSucceed(state, action.payload);
     case signupActionType.GET_ASYNC_ORIGIN_FAILED:
@@ -106,6 +120,10 @@ const signupReducer = (state = initialState, action) => {
       return handleGetCityByRegionSucceed(state, action.payload);
     case signupActionType.GET_CITY_BY_REGION_FAILED:
       return handleGetCityByRegionFailed(state, action.payload);
+    case signupActionType.GET_CITY_BY_ZIPCODE_SUCCEED:
+      return handleGetCityByZipcodeSucceed(state, action.payload);
+    case signupActionType.GET_CITY_BY_ZIPCODE_FAILED:
+      return handleGetCityByZipcodeFailed(state, action.payload);
 
     default:
       return {...state};

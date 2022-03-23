@@ -57,9 +57,6 @@ const BirthdayScreen = () => {
       );
     } else {
       dispatch(setBirthday({day, month, year}));
-      if (!originStore || originStore.length < 1) {
-        dispatch(getOriginAsync());
-      }
       navigation.navigate(screenNavigation.ORIGIN);
     }
   };

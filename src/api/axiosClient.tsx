@@ -29,6 +29,7 @@ const getCityByGeolocation = (payload: any) => {
 };
 
 const getCityByRegion = (payload: any) => {
+  console.log('🚀 ~ payload', payload);
   return get(
     axiosClient,
     `atlas/${payload.country.id}/${payload.region.id}/cities`,
@@ -39,7 +40,7 @@ const getCityByRegion = (payload: any) => {
 const getCityByZipcode = (payload: any) => {
   return get(
     axiosClient,
-    `atlas/${payload.country}/${payload.zipcode}}/zipcode/cities`,
+    `atlas/${payload.country.id}/${payload.zipcode}/zipcode/cities`,
     payload,
   );
 };

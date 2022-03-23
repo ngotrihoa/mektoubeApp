@@ -15,6 +15,10 @@ const handleSignin = (state, payload) => {
   };
 };
 
+const handleSignout = (state, payload) => {
+  return {...initialState};
+};
+
 const handleSigninSucceed = (state, payload) => {
   return {
     ...state,
@@ -91,6 +95,9 @@ const authReducer = (state = initialState, action: any) => {
 
     case authActionType.RESET_AUTH_ERROR:
       return handleResetAuthError(state, action.payload);
+
+    case authActionType.SIGNOUT:
+      return handleSignout(state, action.payload);
 
     default:
       return {...state};

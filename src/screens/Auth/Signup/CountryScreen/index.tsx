@@ -10,6 +10,7 @@ import Text from '../../../../common/components/MyAppText';
 import RadioItem from '../../../../common/components/RadioItem';
 import {screenNavigation} from '../../../../common/const';
 import {
+  getCountryAsync,
   getRegionByCountry,
   setSelectedCountryStore,
 } from '../../../../redux/actions/signupActions';
@@ -46,14 +47,15 @@ const CountryScreen = () => {
       if (selectedCountry.zipFormat && selectedCountry.zipRegex) {
         navigation.navigate(screenNavigation.ZIPCODE);
       } else {
-        dispatch(getRegionByCountry({idCountry: selectedCountry.id}));
         navigation.navigate(screenNavigation.REGION);
       }
     }
   };
 
   useEffect(() => {
-    if (!contriesStore || contriesStore?.length < 1) return;
+    if (!contriesStore || contriesStore?.length < 1) {
+      dispatch(getCountryAsync());
+    }
     setContries(contriesStore);
   }, [contriesStore]);
 
@@ -68,7 +70,7 @@ const CountryScreen = () => {
         )}
       />
 
-      <View style={classes.content}>
+      <View style={[classes.content, {paddingHorizontal: 0}]}>
         <View style={[classes.boxTitle, {paddingHorizontal: 20}]}>
           <Text style={classes.titleContent}>Quel est votre pays ?</Text>
         </View>
@@ -76,7 +78,7 @@ const CountryScreen = () => {
           data={contries}
           keyExtractor={item => item.id}
           renderItem={renderItem}
-          style={[classes.list]}
+          style={[classes.list, {paddingHorizontal: 20}]}
         />
       </View>
 

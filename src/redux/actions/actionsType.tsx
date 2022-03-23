@@ -7,6 +7,7 @@ const authActionType = {
   SIGNUP_SUCCEED: 'auth/signupSucceed',
   SIGNUP_FAILED: 'auth/signupFailed',
   RESET_AUTH_ERROR: 'auth/resetAuthError',
+  SIGNOUT: 'auth/signout',
 };
 
 const signupActionType = {
@@ -31,6 +32,9 @@ const signupActionType = {
   GET_CITY_BY_REGION: 'signup/getCityByRegion',
   GET_CITY_BY_REGION_SUCCEED: 'signup/getCityByRegionSucceed',
   GET_CITY_BY_REGION_FAILED: 'signup/getCityByRegionFailed',
+  GET_CITY_BY_ZIPCODE: 'signup/getCityByZipcode',
+  GET_CITY_BY_ZIPCODE_SUCCEED: 'signup/getCityByZipcodeSucceed',
+  GET_CITY_BY_ZIPCODE_FAILED: 'signup/getCityByZipcodeFailed',
 };
 
 const uiActionType = {

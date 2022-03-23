@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {TouchableWithoutFeedback, View} from 'react-native';
 import {Snackbar} from 'react-native-paper';
 import {useSelector} from 'react-redux';
 import {selectSnackbar} from '../../../redux/selector/uiSelector';
@@ -31,22 +32,22 @@ const MySnackbar = () => {
   }, [time]);
 
   return (
-    <Snackbar
-      visible={visible}
-      onDismiss={onDismissSnackBar}
-      style={{height: 56, backgroundColor}}
-      wrapperStyle={{
-        position: 'absolute',
-        zIndex: 1000,
-        top: -10,
-      }}
-      duration={3000}
-      action={{
-        label: 'x',
-        onPress: onDismissSnackBar,
-      }}>
-      {message}
-    </Snackbar>
+    <TouchableWithoutFeedback
+      style={{minHeight: 56}}
+      onPress={onDismissSnackBar}>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        style={{minHeight: 56, backgroundColor}}
+        wrapperStyle={{
+          position: 'absolute',
+          zIndex: 1000,
+          top: -10,
+        }}
+        duration={3000}>
+        {message}
+      </Snackbar>
+    </TouchableWithoutFeedback>
   );
 };
 

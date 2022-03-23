@@ -1,4 +1,4 @@
-import {Dimensions, StyleSheet} from 'react-native';
+import {Dimensions, Platform, StyleSheet} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     paddingHorizontal: 20,
     paddingVertical: 15,
-    paddingTop: 45,
+    paddingTop: Platform.OS === 'ios' ? 45 : 10,
   },
   headerLeft: {
     flexBasis: '25%',

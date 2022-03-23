@@ -2,6 +2,7 @@ import {all, call, put} from 'redux-saga/effects';
 import {
   getCityByGeolocation,
   getCityByRegion,
+  getCityByZipcode,
   getCountries,
   getOrigins,
   getRegionByCountry,
@@ -12,6 +13,8 @@ import {
   getCityByGeolocationSucceed,
   getCityByRegionFailed,
   getCityByRegionSucceed,
+  getCityByZipcodeFailed,
+  getCityByZipcodeSucceed,
   getCountryAsyncSucceed,
   getOriginAsyncFailed,
   getOriginAsyncSucceed,
@@ -115,6 +118,24 @@ const signupSaga = {
       const responseError = error.response;
       yield all([
         put(getCityByRegionFailed(responseError)),
+        put(setSpinLoadingGlobal(false)),
+      ]);
+    }
+  },
+  *getCityByZipcode(action) {
+    try {
+      yield put(setSpinLoadingGlobal(true));
+      const response = yield call(() => getCityByZipcode(action.payload || {}));
+      if (response.status === StatusCodeHttp.SUCCESS) {
+        yield all([
+          put(getCityByZipcodeSucceed(response.data.CONTENT)),
+          put(setSpinLoadingGlobal(false)),
+        ]);
+      }
+    } catch (error) {
+      const responseError = error.response;
+      yield all([
+        put(getCityByZipcodeFailed(responseError)),
         put(setSpinLoadingGlobal(false)),
       ]);
     }
