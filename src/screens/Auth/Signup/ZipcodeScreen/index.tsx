@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {TextInput} from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -31,7 +30,7 @@ const ZipcodeScreen = () => {
     } else if (!zipcode.match(regex)) {
       dispatch(setSnackbar({type: 'error', message: 'Invalid zipcode'}));
     } else {
-      navigation.navigate(screenNavigation.SIGNUP);
+      navigation.navigate(screenNavigation.CITY);
     }
   };
 
@@ -55,7 +54,7 @@ const ZipcodeScreen = () => {
           </View>
           <MyInput
             value={zipcode}
-            style={{marginHorizontal: 35, fontSize: 17}}
+            style={{fontSize: 17}}
             onChangeText={value => setZipcode(value)}
             label="Code postal ?"
             keyboardType="number-pad"

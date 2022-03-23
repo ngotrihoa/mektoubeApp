@@ -45,7 +45,6 @@ const handleSetSelectedCountry = (state, payload: any) => {
 };
 
 const handleGetCityByGeolocationSucceed = (state, payload) => {
-  console.log('🚀 ~ payload', payload);
   return {...state, cities: payload.cities};
 };
 const handleGetCityByGeolocationFailed = (state, payload) => {

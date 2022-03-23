@@ -3,6 +3,10 @@ const authActionType = {
   SIGNIN_SUCCEED: 'auth/signinSucceed',
   SIGNIN_FAILED: 'auth/signinFailed',
   SET_IS_LOADING_AUTH: 'auth/setIsLoadingAuth',
+  SIGNUP: 'auth/signup',
+  SIGNUP_SUCCEED: 'auth/signupSucceed',
+  SIGNUP_FAILED: 'auth/signupFailed',
+  RESET_AUTH_ERROR: 'auth/resetAuthError',
 };
 
 const signupActionType = {

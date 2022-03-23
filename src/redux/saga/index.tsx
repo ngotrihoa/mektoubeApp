@@ -11,6 +11,7 @@ import homeSaga from './homeSaga';
 function* rootSaga() {
   yield all([
     takeLatest(authActionType.SIGNIN, authSaga.signin),
+    takeLatest(authActionType.SIGNUP, authSaga.signup),
     takeLatest(signupActionType.GET_ASYNC_ORIGIN, signupSaga.getOriginAsync),
     takeLatest(
       signupActionType.GET_CITY_BY_GEOLOCATION,

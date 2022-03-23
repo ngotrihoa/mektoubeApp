@@ -15,11 +15,12 @@ const axiosAuth = axios.create({
 axiosAuth.interceptors.response.use(
   response => {
     //if sign in or sign up set new header and save token to AsyncStorage
-    if (
-      response.config.url?.startsWith('/gate/') ||
-      response.config.url?.startsWith('/pool/')
-    ) {
+    if (response.config.url?.startsWith('/gate/')) {
       setAuthorization(response.data.CONTENT);
+    }
+
+    if (response.config.url?.startsWith('/pool/')) {
+      setAuthorization(response.data.CONTENT.AUTH);
     }
 
     return response;
@@ -37,5 +38,9 @@ const signin = (data = {}, config = {}) => {
   return axiosAuth.post(`/gate/${data.login}.json`, data, config);
 };
 
-export {signin};
+const signup = (data = {}, config = {}) => {
+  return axiosAuth.post(`/pool/.json?new_key_signup=true`, data, config);
+};
+
+export {signin, signup};
 export default axiosAuth;

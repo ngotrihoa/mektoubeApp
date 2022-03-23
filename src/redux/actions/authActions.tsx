@@ -20,10 +20,37 @@ const signinFailedActions = (payload: any) => {
     payload,
   };
 };
+const signupActions = (payload: any) => {
+  return {
+    type: authActionType.SIGNUP,
+    payload,
+  };
+};
+
+const signupSucceedActions = (payload: any) => {
+  return {
+    type: authActionType.SIGNUP_SUCCEED,
+    payload,
+  };
+};
+
+const signupFailedActions = (payload: any) => {
+  return {
+    type: authActionType.SIGNUP_FAILED,
+    payload,
+  };
+};
 
 const setIsLoadingAuth = (payload: any) => {
   return {
     type: authActionType.SET_IS_LOADING_AUTH,
+    payload,
+  };
+};
+
+const resetAuthErrorAction = (payload: any) => {
+  return {
+    type: authActionType.RESET_AUTH_ERROR,
     payload,
   };
 };
@@ -33,4 +60,8 @@ export {
   signinFailedActions,
   signinSucceedActions,
   setIsLoadingAuth,
+  signupActions,
+  signupFailedActions,
+  signupSucceedActions,
+  resetAuthErrorAction,
 };

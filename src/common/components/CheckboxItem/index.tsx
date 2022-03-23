@@ -7,6 +7,7 @@ interface CheckboxItemProps {
   colorChecked?: string;
   checked?: boolean;
   size?: number;
+  style?: any;
 }
 
 const CheckboxItem: React.FC<CheckboxItemProps> = ({
@@ -14,6 +15,7 @@ const CheckboxItem: React.FC<CheckboxItemProps> = ({
   colorUnchecked = '#fff',
   colorChecked = '#fff',
   size = 22,
+  style,
 }) => {
   return (
     <View
@@ -24,6 +26,7 @@ const CheckboxItem: React.FC<CheckboxItemProps> = ({
           width: size,
           height: size,
         },
+        style,
       ]}>
       {checked && (
         <Ionicons name="checkmark-sharp" size={size - 6} color="#fff" />

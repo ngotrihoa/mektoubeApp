@@ -1,16 +1,16 @@
-import {all, call, put} from 'redux-saga/effects';
-import {signin} from '../../api/axiosAuth';
+import {call, put} from 'redux-saga/effects';
+import {signin, signup} from '../../api/axiosAuth';
 import {StatusCodeHttp} from '../../common/const';
 import {
-  setIsLoadingAuth,
   signinFailedActions,
   signinSucceedActions,
+  signupFailedActions,
+  signupSucceedActions,
 } from '../actions/authActions';
 
 const authSaga = {
   *signin(action: any) {
     try {
-      yield put(setIsLoadingAuth(true));
       const data = {
         login: action.payload.email,
         password: action.payload.password,
@@ -19,15 +19,24 @@ const authSaga = {
       const response = yield call(() => signin(data));
 
       if (response.status === StatusCodeHttp.SUCCESS) {
-        yield all([
-          put(setIsLoadingAuth(false)),
-          put(signinSucceedActions(response.data.CONTENT)),
-        ]);
+        yield put(signinSucceedActions(response.data.CONTENT));
+      }
+    } catch (error) {
+      const errorResponse = error.response;
+      yield put(signinFailedActions(errorResponse));
+    }
+  },
+  *signup(action: any) {
+    try {
+      const response = yield call(() => signup(action.payload));
+
+      if (response.status === StatusCodeHttp.SUCCESS) {
+        yield put(signupSucceedActions(response.data.CONTENT));
       }
     } catch (error) {
       const errorResponse = error.response;
       console.log('🚀 ~ errorResponse', errorResponse);
-      yield put(signinFailedActions(errorResponse));
+      yield put(signupFailedActions(errorResponse));
     }
   },
 };

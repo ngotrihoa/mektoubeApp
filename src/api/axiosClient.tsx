@@ -21,13 +21,25 @@ const getOrigins = (payload: {}) => {
 };
 
 const getCityByGeolocation = (payload: any) => {
-  return get(axiosClient, 'atlas/location', payload);
+  return get(
+    axiosClient,
+    `atlas/location?latitude=${payload.params.latitude}&longitude=${payload.params.longitude}`,
+    payload,
+  );
 };
 
 const getCityByRegion = (payload: any) => {
   return get(
     axiosClient,
     `atlas/${payload.country.id}/${payload.region.id}/cities`,
+    payload,
+  );
+};
+
+const getCityByZipcode = (payload: any) => {
+  return get(
+    axiosClient,
+    `atlas/${payload.country}/${payload.zipcode}}/zipcode/cities`,
     payload,
   );
 };
@@ -47,6 +59,7 @@ export {
   getRegionByCountry,
   getListUser,
   getCityByRegion,
+  getCityByZipcode,
 };
 
 export default axiosClient;
