@@ -27,10 +27,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
   },
+  subTitle: {
+    fontSize: 14,
+  },
   boxTitle: {
     width: '100%',
     marginBottom: 26,
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
   },

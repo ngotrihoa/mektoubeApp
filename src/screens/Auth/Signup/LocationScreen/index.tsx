@@ -13,15 +13,21 @@ import {
   getCityByGeolocation,
   getCountryAsync,
 } from '../../../../redux/actions/signupActions';
-import {setSnackbar} from '../../../../redux/actions/uiAction';
+import {
+  setSnackbar,
+  setSpinLoadingGlobal,
+} from '../../../../redux/actions/uiAction';
 import classes from './styles';
 
 const LocationScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handlePressGetLocation = () => {
+    dispatch(setSpinLoadingGlobal(true));
     Geolocation.getCurrentPosition(
       info => {
+        dispatch(setSpinLoadingGlobal(true));
+
         navigation.navigate(screenNavigation.CITY, {
           from: screenNavigation.LOCATION,
           latitude: info.coords.latitude,
@@ -29,13 +35,15 @@ const LocationScreen = () => {
         });
       },
       error => {
+        dispatch(setSpinLoadingGlobal(false));
+
         dispatch(
           setSnackbar({type: 'error', message: 'Géolocalisation indisponible'}),
         );
       },
       {
         enableHighAccuracy: true,
-        timeout: 20000,
+        timeout: 10000,
       },
     );
   };

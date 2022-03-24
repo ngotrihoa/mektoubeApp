@@ -240,7 +240,7 @@ const SignupScreen = () => {
                   />
                   <View style={{flex: 1}}>
                     <Text style={classes.textLabel}>
-                      Je certifie être majeur(e) et j’accepte les.
+                      Je certifie être majeur(e) et j’accepte les{' '}
                       <Text
                         style={[
                           classes.textLabel,
@@ -267,7 +267,7 @@ const SignupScreen = () => {
                       Mektoube et communiquées à ses prestataires et aux autres
                       membres situés dans et hors l’UE afin de favoriser des
                       rencontres et assurer la gestion de ma relation
-                      commerciale et ce conformément à la.
+                      commerciale et ce conformément à la
                       <Text
                         style={[
                           classes.textLabel,

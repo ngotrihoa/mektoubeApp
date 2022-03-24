@@ -70,6 +70,8 @@ const screenNavigation: Mapping = {
 const BACKGROUND_INTRO = require('./../../assets/images/intro-home.jpeg');
 const LOGO = require('./../../assets/images/logo-large.png');
 const DISCOVERY_BANNER = require('./../../assets/images/discover-banner-male.jpg');
+const MAN_NEW = require('./../../assets/images/avatar-man-new.png');
+const WOMAN_NEW = require('./../../assets/images/avatar-woman-new.png');
 
 export {
   screenNavigation,
@@ -78,4 +80,6 @@ export {
   StatusCodeHttp,
   DISCOVERY_BANNER,
   rules,
+  MAN_NEW,
+  WOMAN_NEW,
 };

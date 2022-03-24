@@ -5,7 +5,10 @@ import {ActivityIndicator, IconButton} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import Text from '../../../common/components/MyAppText';
 import RadioItem from '../../../common/components/RadioItem';
-import {signinActions} from '../../../redux/actions/authActions';
+import {
+  resetAuthErrorAction,
+  signinActions,
+} from '../../../redux/actions/authActions';
 import {
   selectAuthError,
   selectIsLoadingAuth,
@@ -61,6 +64,10 @@ const SigninForm = ({onSignup}) => {
         type: authError.name,
       });
     } else setFormError({});
+
+    return () => {
+      if (authError) dispatch(resetAuthErrorAction({}));
+    };
   }, [emailError, passwordError, authError]);
 
   return (
@@ -111,6 +118,7 @@ const SigninForm = ({onSignup}) => {
                     formError?.name === name ? classes.inputError : null,
                   ]}
                   placeholder="example@example.com"
+                  autoCapitalize="none"
                   onChangeText={onChange}
                 />
               )}
@@ -132,6 +140,7 @@ const SigninForm = ({onSignup}) => {
                     formError?.name === name ? classes.inputError : null,
                   ]}
                   placeholder="example@example.com"
+                  autoCapitalize="none"
                   onChangeText={onChange}
                 />
               )}
@@ -156,6 +165,7 @@ const SigninForm = ({onSignup}) => {
                 secureTextEntry={isShowPass ? false : true}
                 value={value}
                 placeholder="Votre mot de passe"
+                autoCapitalize="none"
                 onChangeText={onChange}
               />
             )}

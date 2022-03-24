@@ -14,7 +14,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useDispatch, useSelector} from 'react-redux';
 import Text from '../../../common/components/MyAppText';
 import Skeleton from '../../../common/components/Skeleton';
-import {DISCOVERY_BANNER} from '../../../common/const';
+import {DISCOVERY_BANNER, MAN_NEW, WOMAN_NEW} from '../../../common/const';
 import {
   getListUserAction,
   getMoreUserAction,
@@ -27,14 +27,31 @@ import {
 import classes from './styles';
 
 const ListUsersItem = ({user}) => {
+  const avatar = user.thumbnail
+    ? {uri: user.thumbnail}
+    : +user.entity === 1
+    ? MAN_NEW
+    : WOMAN_NEW;
+
   return (
     <View style={classes.userItem}>
       <View style={classes.userThumbnail}>
         <Image
-          source={{uri: user.thumbnail}}
-          resizeMode="contain"
-          style={classes.imageThumbnail}
+          source={avatar}
+          resizeMode="cover"
+          style={[
+            classes.imageThumbnail,
+            !user.thumbnail ? classes.imageSm : null,
+          ]}
         />
+        {!(user?.online === 0) && (
+          <View
+            style={[
+              classes.dotStatus,
+              {backgroundColor: user.online === 1 ? '#24cf5f' : '#ffcc3b'},
+            ]}
+          />
+        )}
       </View>
       <View style={classes.userInfo}>
         <Text style={classes.userName}>{user.name}</Text>

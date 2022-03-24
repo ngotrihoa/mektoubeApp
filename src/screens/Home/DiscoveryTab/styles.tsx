@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#ffffff',
     elevation: 3,
-    maxWidth: width * 0.4,
+    width: width * 0.4,
     shadowColor: '#000',
     shadowOffset: {
       height: 10,
@@ -155,13 +155,32 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.06,
   },
   userThumbnail: {
-    width: 131,
+    width: '100%',
     height: 131,
     overflow: 'hidden',
     borderRadius: 16,
+    backgroundColor: '#f6fbfe',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dotStatus: {
+    position: 'absolute',
+    width: 20,
+    height: 20,
+    borderRadius: 50,
+    borderWidth: 4,
+    borderColor: '#fff',
+    backgroundColor: '#24cf5f',
+    bottom: -1,
+    right: -1,
   },
   imageThumbnail: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
+  imageSm: {
+    width: '70%',
+    height: '70%',
   },
   userInfo: {
     paddingTop: 6,

@@ -88,6 +88,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     position: 'relative',
+    color: '#000',
+    fontWeight: '700',
   },
   iconShowPassword: {
     position: 'absolute',

@@ -37,7 +37,7 @@ const SigninScreen = () => {
         <View style={classes.content}>
           <Image source={LOGO} style={classes.logo} resizeMode="contain" />
           <Text style={classes.subLogo}>
-            L'application numero 1 de la rencontre Musulmane et Maghrebine
+            L'application numéro 1 de la rencontre Musulmane et Maghrébine
           </Text>
         </View>
         <View style={classes.groupLink}>
@@ -49,7 +49,7 @@ const SigninScreen = () => {
           <TouchableOpacity style={classes.linkBtn} onPress={handlePressSignup}>
             <View style={classes.btnText}>
               <Text style={{fontWeight: '600'}}>INSCRIPTION GRATUITE</Text>
-              <Text style={{fontWeight: '600'}}>en 1min</Text>
+              <Text style={{fontWeight: '600'}}>EN 1MIN</Text>
             </View>
           </TouchableOpacity>
         </View>

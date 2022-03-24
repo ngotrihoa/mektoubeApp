@@ -52,13 +52,13 @@ const EntityScreen = () => {
           <TouchableOpacity
             style={classes.listItem}
             onPress={() => setEntity('Male')}>
-            <Text style={classes.label}>Un homme</Text>
+            <Text style={classes.label}>Homme</Text>
             <RadioItem checked={entity === 'Male'} />
           </TouchableOpacity>
           <TouchableOpacity
             style={classes.listItem}
             onPress={() => setEntity('Female')}>
-            <Text style={classes.label}>Une femme</Text>
+            <Text style={classes.label}>Femme</Text>
             <RadioItem checked={entity === 'Female'} />
           </TouchableOpacity>
         </View>

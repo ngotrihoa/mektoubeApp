@@ -73,6 +73,7 @@ const CountryScreen = () => {
       <View style={[classes.content, {paddingHorizontal: 0}]}>
         <View style={[classes.boxTitle, {paddingHorizontal: 20}]}>
           <Text style={classes.titleContent}>Quel est votre pays ?</Text>
+          <Text style={classes.subTitle}>Un seul choix possible</Text>
         </View>
         <FlatList
           data={contries}

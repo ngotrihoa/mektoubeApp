@@ -1,5 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
+import {Platform} from 'react-native';
 import {
   DiscoveryIcon,
   EntityIcon,
@@ -26,7 +27,7 @@ const BottomTabHome = () => {
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: 80,
+    height: Platform.OS === 'ios' ? 80 : 50,
     zIndex: 0,
   };
 

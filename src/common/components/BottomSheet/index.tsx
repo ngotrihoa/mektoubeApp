@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Text, View, Animated} from 'react-native';
+import {Text, View, Animated, ScrollView} from 'react-native';
 import {Portal, IconButton} from 'react-native-paper';
 import {Dimensions} from 'react-native';
 import classes from './styles';
@@ -19,7 +19,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   const [open, setOpen] = useState(show);
 
   const deviceHeight = Dimensions.get('window').height;
-  const bottomSheetHeight = deviceHeight * 0.8;
+  const bottomSheetHeight = deviceHeight * 0.5;
 
   const bottom = useRef(new Animated.Value(-bottomSheetHeight)).current;
 
@@ -44,7 +44,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   return (
     <Portal>
       <Animated.View
-        style={[classes.root, {height: bottomSheetHeight, bottom: bottom}]}>
+        style={[classes.root, {minHeight: bottomSheetHeight, bottom: bottom}]}>
         <View style={classes.header}>
           <Text style={classes.headerText}>{header}</Text>
           <IconButton
@@ -53,7 +53,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
             onPress={() => setOpen(false)}
           />
         </View>
-        <View>{children}</View>
+        <ScrollView>{children}</ScrollView>
       </Animated.View>
     </Portal>
   );

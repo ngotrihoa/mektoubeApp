@@ -39,7 +39,7 @@ const strongPassword = (
 
   return {
     numStrong,
-    status: numStrong > 7 ? 'Fort' : numStrong > 3 ? 'Mayen' : 'Failble',
+    status: numStrong > 7 ? 'Fort' : numStrong > 3 ? 'Mayen' : 'Faible',
   };
 };
 
